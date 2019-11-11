@@ -1,0 +1,8 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP RT9193-33GB
+D LDO 200mV drop at fixed 3.3V output
+K LDO Regulator
+$ENDCMP
+#
+#End Doc Library
