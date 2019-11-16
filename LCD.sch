@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:Gamete-cache
+LIBS:BurnedHead-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -108,9 +108,7 @@ Text Label 8400 5050 2    50   ~ 0
 VCC
 Text HLabel 8100 6250 0    50   Input ~ 0
 VSS
-Wire Wire Line
-	8100 5050 8450 5050
-Text HLabel 8100 5050 0    50   Input ~ 0
+Text HLabel 7800 5050 0    50   Input ~ 0
 3V3
 $Comp
 L Device:R R10
@@ -480,10 +478,32 @@ Text Label 8250 2100 0    50   ~ 0
 LCD_B0
 Wire Wire Line
 	3925 3100 4575 3100
+$Comp
+L parts-lib:C100nF C35
+U 1 1 5DCF917A
+P 8000 5150
+F 0 "C35" H 8092 5196 50  0000 L CNN
+F 1 "C100nF" H 8092 5105 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 8000 5150 50  0001 C CNN
+F 3 "https://datasheet.lcsc.com/szlcsc/YAGEO-CC0603KRX7R9BB104_C14663.pdf" H 8000 5150 50  0001 C CNN
+F 4 "AC0603KRX7R9BB104" H 8210 5420 50  0001 C CNN "Part No."
+F 5 "Yageo" H 8110 5320 50  0001 C CNN "Manufacturer"
+F 6 "LCSC" H 8110 5320 50  0001 C CNN "Distributor"
+F 7 "C149620" H 8110 5320 50  0001 C CNN "Distributor Part No."
+	1    8000 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 5050 8000 5050
 Wire Bus Line
 	7800 3800 7800 4500
 Wire Bus Line
 	7800 3000 7800 3700
 Wire Bus Line
 	7800 2200 7800 2900
+Connection ~ 8000 5050
+Wire Wire Line
+	8000 5050 8450 5050
+Text Label 8000 5250 3    50   ~ 0
+GND
 $EndSCHEMATC

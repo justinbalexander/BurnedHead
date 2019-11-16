@@ -1,5 +1,5 @@
 EESchema Schematic File Version 4
-LIBS:Gamete-cache
+LIBS:BurnedHead-cache
 EELAYER 30 0
 EELAYER END
 $Descr A 11000 8500
@@ -778,9 +778,9 @@ Connection ~ 9375 6625
 Connection ~ 9700 6625
 Wire Wire Line
 	9700 6625 9375 6625
-Text Label 8875 6425 0    50   ~ 0
+Text Label 8500 6425 0    50   ~ 0
 VDD
-Text Label 8875 6625 0    50   ~ 0
+Text Label 8500 6625 0    50   ~ 0
 VSS
 Wire Notes Line
 	10425 2700 10425 6700
@@ -967,10 +967,6 @@ F 7 "C149620" H -25 -75 50  0001 C CNN "Distributor Part No."
 	1    6050 725 
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8875 6425 9075 6425
-Wire Wire Line
-	8875 6625 9075 6625
 $Comp
 L parts-lib:C100nF C22
 U 1 1 5D68DDA2
@@ -1413,7 +1409,7 @@ U 1 1 5DEF9D48
 P 7350 3525
 F 0 "C34" H 7442 3571 50  0000 L CNN
 F 1 "C1uF" H 7442 3480 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 7350 3525 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 7350 3525 50  0001 C CNN
 F 3 "https://datasheet.lcsc.com/szlcsc/Vishay-Intertech-VJ0603G105KXJCW1BC_C272771.pdf" H 7350 3525 50  0001 C CNN
 F 4 "VJ0603G105KXJCW1BC" H 7560 3795 50  0001 C CNN "Part No."
 F 5 "Vishay Intertech" H 7460 3695 50  0001 C CNN "Manufacturer"
@@ -1432,7 +1428,7 @@ U 1 1 5DF10BBB
 P 6000 3150
 F 0 "C33" V 5771 3150 50  0000 C CNN
 F 1 "C100nF" V 5862 3150 50  0000 C CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 6000 3150 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 6000 3150 50  0001 C CNN
 F 3 "https://datasheet.lcsc.com/szlcsc/YAGEO-CC0603KRX7R9BB104_C14663.pdf" H 6000 3150 50  0001 C CNN
 F 4 "AC0603KRX7R9BB104" H 6210 3420 50  0001 C CNN "Part No."
 F 5 "Yageo" H 6110 3320 50  0001 C CNN "Manufacturer"
@@ -1447,7 +1443,7 @@ U 1 1 5DF11F0F
 P 5875 3600
 F 0 "C32" H 5725 3700 50  0000 L CNN
 F 1 "C100nF" H 5900 3525 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0603_1608Metric_Pad1.05x0.95mm_HandSolder" H 5875 3600 50  0001 C CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5875 3600 50  0001 C CNN
 F 3 "https://datasheet.lcsc.com/szlcsc/YAGEO-CC0603KRX7R9BB104_C14663.pdf" H 5875 3600 50  0001 C CNN
 F 4 "AC0603KRX7R9BB104" H 6085 3870 50  0001 C CNN "Part No."
 F 5 "Yageo" H 5985 3770 50  0001 C CNN "Manufacturer"
@@ -1543,6 +1539,28 @@ Wire Wire Line
 	5875 3350 5875 3500
 NoConn ~ 4800 3200
 NoConn ~ 4800 3300
+$Comp
+L parts-lib:C100nF C36
+U 1 1 5DD21B62
+P 8675 6525
+F 0 "C36" H 8767 6571 50  0000 L CNN
+F 1 "C100nF" H 8767 6480 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 8675 6525 50  0001 C CNN
+F 3 "https://datasheet.lcsc.com/szlcsc/YAGEO-CC0603KRX7R9BB104_C14663.pdf" H 8675 6525 50  0001 C CNN
+F 4 "AC0603KRX7R9BB104" H 8885 6795 50  0001 C CNN "Part No."
+F 5 "Yageo" H 8785 6695 50  0001 C CNN "Manufacturer"
+F 6 "LCSC" H 8785 6695 50  0001 C CNN "Distributor"
+F 7 "C149620" H 8785 6695 50  0001 C CNN "Distributor Part No."
+	1    8675 6525
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 6625 8675 6625
+Connection ~ 8675 6625
+Wire Wire Line
+	8675 6625 9075 6625
+Wire Wire Line
+	8500 6425 8675 6425
 Wire Bus Line
 	5350 5150 5350 5500
 Wire Bus Line
@@ -1551,4 +1569,7 @@ Wire Bus Line
 	6450 1375 6450 2150
 Wire Bus Line
 	7425 1375 7425 2275
+Connection ~ 8675 6425
+Wire Wire Line
+	8675 6425 9075 6425
 $EndSCHEMATC
