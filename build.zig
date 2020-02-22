@@ -20,4 +20,5 @@ pub fn build(b: *Builder) void {
     });
 
     b.default_step.dependOn(&exe.step);
+    exe.install();
 }
