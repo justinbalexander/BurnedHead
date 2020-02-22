@@ -7,17 +7,12 @@ pub fn build(b: *Builder) void {
     exe.setBuildMode(b.standardReleaseOptions());
     exe.setLinkerScriptPath("firmware/linker.ld");
 
-    exe.setTheTarget(std.Target{
-        .Cross = std.Target.Cross{
-            .arch = .{ .thumb = .v7em },
-            .os = .freestanding,
-            .abi = .eabihf,
-            .cpu_features = std.Target.CpuFeatures.initFromCpu(
-                .{ .thumb = .v7em },
-                &std.Target.arm.cpu.cortex_m7,
-            ),
-        },
-    });
+    exe.setTheTarget(
+        std.Target.parse(.{
+            .arch_os_abi = "thumb-freestanding-eabihf",
+            .cpu_features = "cortex_m7",
+        }) catch unreachable,
+    );
 
     b.default_step.dependOn(&exe.step);
     exe.install();
