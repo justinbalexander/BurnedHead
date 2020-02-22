@@ -178,11 +178,11 @@ inline fn Default_Handler() void {
 }
 
 export fn NMI_Handler() void {
-    while (true) {}
+    Default_Handler();
 }
 
 export fn HardFault_Handler() void {
-    while (true) {}
+    Default_Handler();
 }
 
 export fn MemManage_Handler() void {
