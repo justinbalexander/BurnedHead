@@ -5,6 +5,6 @@ comptime {
     _ = @import("startup.zig");
 }
 
-pub fn main() noreturn {
+pub export fn main() noreturn {
     while (true) {}
 }
