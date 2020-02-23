@@ -17,6 +17,9 @@ if command -v gdb-multiarch; then
     GDB='gdb-multiarch'
 elif command -v arm-none-eabi-gdb ; then
     GDB='arm-none-eabi-gdb'
+else
+    echo Install gdb-multiarch or arm-none-eabi-gdb to debug
+    exit -1
 fi
 
 ${GDB} --quiet -x firmware/debug/debug.gdb zig-cache/bin/executable.elf
