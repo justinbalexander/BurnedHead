@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set -e
+# set monitor mode so that SIGINT isn't also sent to gdb server when interrupting gdb with ^C
+set -m
 
 if command -v JLinkGDBServerCLExe; then
 JLinkGDBServerCLExe -device STM32F767ZG -if swd -speed 16000 -strict -timeout 1 -singlerun -nogui -vd > gdbserver.log 2>&1 &
