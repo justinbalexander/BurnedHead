@@ -20,21 +20,21 @@ SECTIONS
         _etext = .;
     } > ITCM_FLASH
 
-    .ARM.exidx : AT(ADDR(.text) + SIZEOF(.text))
+    .ARM.exidx :
     {
         __exidx_start = .;
         *(.ARM.exidx* .gnu.linkonce.armexidx.*)
         __exidx_end = .;
     } > ITCM_FLASH
 
-    .data : AT(ADDR(.ARM.exidx) + SIZEOF(.ARM.exidx))
+    .data :
     {
         _data = .;
         _ldata = LOADADDR (.data);
         *(vtable)
         *(.data*)
         _edata = .;
-    } > ITCM_RAM
+    } > SRAM2 AT> AXIM_FLASH
 
     .bss :
     {
@@ -42,6 +42,6 @@ SECTIONS
         *(.bss*)
         *(COMMON)
         _ebss = .;
-    } > ITCM_RAM
+    } > SRAM2
 }
-_estack = ORIGIN(ITCM_RAM) + LENGTH(ITCM_RAM);
+_estack = ORIGIN(SRAM2) + LENGTH(SRAM2);
