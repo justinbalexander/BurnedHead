@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e
+
+if command -v JLinkGDBServerCLExe; then
+    JLinkGDBServerCLExe -device STM32F767ZG -if swd -speed 16000 -strict -timeout 1 -halt -nogui -vd
+else
+    echo Install JLinkGDBServerCLExe to debug
+    exit -1
+fi

@@ -2,19 +2,13 @@
 
 set -e
 
-if command -v JLinkGDBServerCLExe; then
-JLinkGDBServerCLExe -device STM32F767ZG -if swd -speed 16000 -strict -timeout 1 -singlerun -nogui -vd > gdbserver.log 2>&1 &
-else
-    echo Install JLinkGDBServerCLExe to debug
-    exit -1
-fi
-
-GDB='echo Install gdb-multiarch or arm-none-eabi-gdb to run commands: '
-
 if command -v gdb-multiarch; then
     GDB='gdb-multiarch'
 elif command -v arm-none-eabi-gdb ; then
     GDB='arm-none-eabi-gdb'
+else
+    echo Install gdb-multiarch or arm-none-eabi-gdb to debug
+    exit -1
 fi
 
 ${GDB} --quiet -x firmware/debug/debug.gdb zig-cache/bin/executable.elf
