@@ -179,6 +179,7 @@ export fn Reset_Handler() callconv(.Naked) noreturn {
 }
 
 inline fn Default_Handler() void {
+    @breakpoint();
     while (true) {}
 }
 
