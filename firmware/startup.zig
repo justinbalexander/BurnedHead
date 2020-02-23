@@ -160,6 +160,11 @@ export fn Reset_Handler() callconv(.Naked) noreturn {
     var ram_data_slice = @ptrCast([*]u8, &_data)[0..init_data_length];
     std.mem.copy(u8, init_data_slice, ram_data_slice);
 
+    const relocate_len = isrVectors[0..].len;
+    const relocate_to = @intToPtr([*]u8, 0x04);
+    const relocate_from = std.mem.toBytes(isrVectors);
+    std.mem.copy(u8, relocate_to[0..relocate_len], relocate_from[0..relocate_len]);
+
     const bss_slice = @ptrCast([*]u8, &_bss)[0 .. @ptrToInt(&_ebss) - @ptrToInt(&_bss)];
     std.mem.set(u8, bss_slice, 0);
 
