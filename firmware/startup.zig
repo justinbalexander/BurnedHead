@@ -170,9 +170,9 @@ export fn Reset_Handler() callconv(.Naked) noreturn {
 
     if (builtin.abi == .eabihf) {
         // Set CP10 and CP11 Full Access
-        var cpacr = reg.FPU_CPACR.CPACR.read();
-        cpacr |= reg.FPU_CPACR.CPACR.CP.mask;
-        reg.FPU_CPACR.CPACR.write(cpacr);
+        var cpacr = reg.FPU_CPACR_CPACR_Read();
+        cpacr |= reg.FPU_CPACR_CPACR_CP_Mask;
+        reg.FPU_CPACR_CPACR_Write(cpacr);
     }
 
     main.main();
