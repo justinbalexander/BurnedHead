@@ -169,13 +169,15 @@ export fn Reset_Handler() callconv(.Naked) noreturn {
     std.mem.set(u8, bss_slice, 0);
 
     if (builtin.abi == .eabihf) {
-        // Set CP10 and CP11 Full Access
-        var cpacr = reg.FPU_CPACR_CPACR_Read();
-        cpacr |= reg.FPU_CPACR_CPACR_CP_Mask;
-        reg.FPU_CPACR_CPACR_Write(cpacr);
+        enableFPU();
     }
 
     main.main();
+}
+
+fn enableFPU() void {
+    // Set CP10 and CP11 Full Access
+    reg.FPU_CPACR_CPACR_Ptr.* |= reg.FPU_CPACR_CPACR_CP_Mask;
 }
 
 inline fn Default_Handler() void {
