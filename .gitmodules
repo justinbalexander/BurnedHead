@@ -1,3 +1,6 @@
 [submodule "library/parts-lib"]
 	path = library/parts-lib
 	url = https://github.com/vegecode/parts-lib
+[submodule "firmware/zig-cortex"]
+	path = firmware/zig-cortex
+	url = https://github.com/vegecode/zig-cortex.git
