@@ -7,8 +7,8 @@ pub fn build(b: *Builder) void {
     exe.setBuildMode(b.standardReleaseOptions());
     exe.setLinkerScriptPath("firmware/linker.ld");
 
-    exe.setTheTarget(
-        std.Target.parse(.{
+    exe.setTarget(
+        std.zig.CrossTarget.parse(.{
             .arch_os_abi = "thumb-freestanding-eabihf",
             .cpu_features = "cortex_m7",
         }) catch unreachable,
