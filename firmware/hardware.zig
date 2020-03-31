@@ -58,9 +58,15 @@ fn initSysTick() void {
 }
 
 fn initClocks() void {
+    // enable clock for power controller so
+    // it can control the voltage scaling once
+    // pll is enabled
+    RCC_APB1ENR_Ptr.* |= RCC_APB1ENR_PWREN(1);
     // using HSE, enable first in bypass mode for resonator
     // See "Entering Over-drive mode" RM0410
     RCC_CR_Ptr.* |= RCC_CR_HSEBYP(1) | RCC_CR_HSEON(1);
+    // set VOS to scale 1, highest power consumption and performance
+    PWR_CR1_Ptr.* = (PWR_CR1_Ptr.* & ~@as(u32, PWR_CR1_VOS_Mask)) | PWR_CR1_VOS(3);
 
     var pllcfgr = RCC_PLLCFGR_Ptr.*;
     pllcfgr &= ~@as(u32, RCC_PLLCFGR_Write_Mask);
@@ -95,11 +101,10 @@ fn initClocks() void {
         ded_clock_2 |
         RCC_DCKCFGR2_SDMMC1SEL(0) | // 48MHz Clock
         RCC_DCKCFGR2_CK48MSEL(0); // 48MHz Clock from PLL
-
     // enable pll
     RCC_CR_Ptr.* |= RCC_CR_PLLON(1) | RCC_CR_PLLSAION(1);
     // enable overdrive, wait for ready
-    PWR_CR1_Ptr.* |= PWR_CR1_ODEN(1); // TODO: set VOS to scale 1?
+    PWR_CR1_Ptr.* |= PWR_CR1_ODEN(1);
     while ((PWR_CSR1_Ptr.* & PWR_CSR1_ODRDY_Mask) == 0) {}
     // do overdrive switch, wait for completion
     PWR_CR1_Ptr.* |= PWR_CR1_ODSWEN(1);
@@ -148,7 +153,6 @@ fn initClocks() void {
         RCC_AHB3ENR_FMCEN(1);
     RCC_APB1ENR_Ptr.* |=
         RCC_APB1ENR_DACEN(1) |
-        RCC_APB1ENR_PWREN(0) | // TODO
         RCC_APB1ENR_TIM2EN(0) |
         RCC_APB1ENR_TIM3EN(0) |
         RCC_APB1ENR_TIM4EN(0) |
