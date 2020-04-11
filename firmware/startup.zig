@@ -218,7 +218,7 @@ export fn PendSV_Handler() void {
 }
 
 export fn SysTick_Handler() void {
-    Default_Handler();
+    // empty
 }
 
 export fn WWDG_IRQHandler() void {
