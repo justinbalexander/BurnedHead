@@ -1,5 +1,6 @@
 const cm = @import("zig-cortex/v7m.zig");
 const std = @import("std");
+const gpio = @import("gpio.zig");
 usingnamespace @import("STM32F7x7.zig");
 
 const Pllp = enum(u2) {
@@ -50,6 +51,7 @@ pub fn init() void {
     cm.PriorityBitsGrouping.set(.GroupPriorityBits_4);
     initSysTick();
     initClocks();
+    gpio.init();
 }
 
 fn initSysTick() void {
