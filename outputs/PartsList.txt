@@ -1,0 +1,102 @@
+Source,C:\Users\jalexander\Documents\Repos\external\BurnedHead\BurnedHead.sch
+Kicad Rev,Eeschema (5.1.2)-1
+Generated Date,6/18/2020 7:29:08 AM
+
+Title,Burned Head
+Company,Justin Alexander
+Revision,A
+Date Issue,2019-11-10
+
+Reference,Value,Notes,Distributor,Distributor Part No.,Manufacturer,Part No.,Description,Field4,Field5,Field6,Field7,Field8,Pinout,LCSC Part No.,Library,Library Ref
+R2,2K,I (mA) = 1000 (V) / R (kOhms),,,,,,,,,,,,,Device,R_Small
+R6,100K,I (mA) = 1000 (V) / R (kOhms),,,,,,,,,,,,,Device,R_Small
+R3,100K,I (mA) = 1000 (V) / R (kOhms),,,,,,,,,,,,,Device,R_Small
+C4,C4.7uF,,LCSC,C132173,Yageo,CC0805KKX5R8BB475,,,,,,,,,parts-lib,C4.7uF
+C2,C4.7uF,,LCSC,C132173,Yageo,CC0805KKX5R8BB475,,,,,,,,,parts-lib,C4.7uF
+C5,C1uF,,LCSC,C272771,Yageo,CC0603KRX7R7BB105,,,,,,,,,parts-lib,C1uF
+C3,C1uF,,LCSC,C272771,Yageo,CC0603KRX7R7BB105,,,,,,,,,parts-lib,C1uF
+J1,USB_B_Micro,,LCSC,C132560,Molex,47346-0001,,,,,,,,,parts-lib,USB_B_Micro
+U1,MCP73832-2-OT,,LCSC,C38066,Microchip,MCP73832T-2ACI/OT,,,,,,,,,parts-lib,MCP73832-2-OT
+BT1,LiPo_P1.25_THRU,,LCSC,C267514,Joint Tech Elec,A1250WR-02P,1.25mm pitch JST style LiPo battery connector - Through Hole - V+ on 2,,,,,,,,parts-lib,LiPo_P1.25_THRU
+Q2,IRLML6401TRPBF,,LCSC,C3034,International Rectifier,IRLML6401TRPBF,MOSFET P Trench 12V 4.3A 950mV @ 250uA 50 mΩ @ 4.3A,4.5V (SOT-23-3) RoHS,,,,,,,,parts-lib,IRLML6401TRPBF
+D3,DFLS130L-7,,LCSC,C110493,Diodes Incorporated,DFLS130L-7,Schottky Barrier Rectifier (1A Continuous Current) (.31V @ 1A FVD) (1mA @ 30V Reverse),,,,,,,,parts-lib,DFLS130L-7
+D1,SMF12CA,,LCSC,C123801,Microdiode Electronics Tech,SMF12CA,Bi-directional TVS, 12V Reverse Standoff, 13.3V Breakdown, 19.9V Clamping (max) @ 10.1A Ipp (10/1000us),,,,,,,,parts-lib,SMF12CA
+F1,1206L150TH,,LCSC,C118413,LittleFuse,1206L150TH,PTC Resettable Fuse, 1206, 1.5A Ihold, 3.0A Itrip, .30s Time to trip, .04-.12 R,,,,,,,,parts-lib,1206L150TH
+SW1,SW_SPDT,,LCSC,C393937,SHOU HAN,SK12D07VG4,,,,,,,,,parts-lib,SW_SPDT
+R4,10K,I (mA) = 1000 (V) / R (kOhms),,,,,,,,,,,,,Device,R_Small
+R5,10K,I (mA) = 1000 (V) / R (kOhms),,,,,,,,,,,,,Device,R_Small
+D2,1N4148WS,,LCSC,C60580,Diodes Incorporated,1N4148WS-7-F,,,,,,,,,parts-lib,1N4148WS
+U2,RT9013-33GB,,LCSC,C47773,Richtek Tech,RT9013-33GB,3.3V Fixed LDO 250mv @ 500mA,,,,,,,,parts-lib,RT9013-33GB
+R1,1M,I (mA) = 1000 (V) / R (kOhms),,,,,,,,,,,,,Device,R_Small
+C1,C22nF,,LCSC,C389111,Yageo,CC0603KRX7R9BB223,,,,,,,,,parts-lib,C22nF
+D5,1N4148WS,,LCSC,C60580,Diodes Incorporated,1N4148WS-7-F,,,,,,,,,parts-lib,1N4148WS
+U4,51296-5494,,,,,,,Molex,Conn.; Rect/PCB; FFC/FPC; 54 Cir.; SMT; ZIF; Rt. Angle; Easy-On Type; Gold Plate,Unavailable,None,51296-5494,LQ035NC111,,parts-lib-SnapEDA,51296-5494
+R10,10K,Device,R
+R11,10K,Device,R
+R9,100K,Device,R
+U3,TPS61169,,LCSC,C71045,Texas Instruments,TPS61169,,,,,,,,,parts-lib,TPS61169
+R8,10.2 1%,Device,R
+R7,100K,Device,R
+C6,C4.7uF,,LCSC,C132173,Yageo,CC0805KKX5R8BB475,,,,,,,,,parts-lib,C4.7uF
+D4,NSR0240,,LCSC,C152519,ON Semiconductor,NSR0240HT1G,Schottky (250mA Continuous Current) (.48V FVD) (.2uA @ 25V Reverse),,,,,,,,parts-lib,NSR0240
+C7,C1uF,,LCSC,C272771,Yageo,CC0603KRX7R7BB105,,,,,,,,,parts-lib,C1uF
+L1,SNR4018K-6R8M,,LCSC,C326302,3L Coils,SNR4018K-6R8M,Inductor SMD 4x4mm 6.8uH 20%, 124m DCR, 1.45 Isat,,,,,,,,parts-lib,SNR4018K-6R8M
+C35,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+R13,10K,Device,R_Small
+C28,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C11,C2.2uF,,LCSC,C106853,Yageo,CC0603KRX5R7BB225,,,,,,,,,parts-lib,C2.2uF
+C12,C2.2uF,,LCSC,C106853,Yageo,CC0603KRX5R7BB225,,,,,,,,,parts-lib,C2.2uF
+C14,C10uF,,LCSC,C106238,Yageo,CC1206ZKY5V8BB106,,,,,,,,,parts-lib,C10uF
+C8,C1uF,,LCSC,C272771,Yageo,CC0603KRX7R7BB105,,,,,,,,,parts-lib,C1uF
+C10,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+R14,10K,Device,R_Small
+U5,XO_8MHz_SMD,,LCSC,C39097,SiTime,SiT8008AI-22-33E-8.000000D,,,,,,,,,parts-lib,XO_8MHz_SMD
+R12,1K,Device,R_Small
+C9,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+R16,10K,Device,R_Small
+R17,10K,Device,R_Small
+U7,MT48LC16M16A2,,,,Micron Tech,MT48LC16M16A2P-6A-IT-G,,,,,,,,C26393,parts-lib-SnapEDA,MT48LC16M16A2
+C25,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C23,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C21,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C20,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C19,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C18,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C17,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C16,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C15,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C22,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C24,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C26,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C27,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+R15,10K,Device,R_Small
+C13,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+SW2,SW_Push,Switch,SW_Push
+J2,Conn_ARM_JTAG_SWD_10,Connector,Conn_ARM_JTAG_SWD_10
+U6,STM32F767ZGTx,parts-lib,STM32F767ZGTx
+C31,C10uF,,LCSC,C106238,Yageo,CC1206ZKY5V8BB106,,,,,,,,,parts-lib,C10uF
+C34,C1uF,,LCSC,C272771,Vishay Intertech,VJ0603G105KXJCW1BC,,,,,,,,,parts-lib,C1uF
+C33,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+C32,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+LS1,Speaker,Device,Speaker
+U8,PAM8302AAS,Amplifier_Audio,PAM8302AAS
+R19,2K,Device,R_Small
+R18,2K,Device,R_Small
+C36,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+J3,DM3AT-SF-PEJMS,,LCSC,C114218,Hirose,DM3AT-SF-PEJMS,microSD socket, push-push, card detect normally open,,,,,,,,parts-lib,DM3AT-SF-PEJMS
+R26,47K,Device,R_Small
+R25,47K,Device,R_Small
+R24,47K,Device,R_Small
+R23,47K,Device,R_Small
+R22,47K,Device,R_Small
+C29,C1uF,,LCSC,C272771,Yageo,CC0603KRX7R7BB105,,,,,,,,,parts-lib,C1uF
+C30,C100nF,,LCSC,C149620,Yageo,AC0603KRX7R9BB104,,,,,,,,,parts-lib,C100nF
+R21,2R2,Device,R_Small
+SW4,DualShock-DPad,parts-lib,DualShock-DPad
+SW5,SW_Push,Switch,SW_Push
+SW6,SW_Push,Switch,SW_Push
+SW3,SW_Push,,LCSC,,,C79175,,,,,,,,,Switch,SW_Push
+SW8,SW_Push,,LCSC,,,C79175,,,,,,,,,Switch,SW_Push
+J4,FPC_1x5_TopContact_P=0.5mm,,LCSC,C388691,XKB Enterprise,X05B20U05T,FFC,FPC connector SMD, P=0.5mm, Top Contact, Slide Lock,,,,,,,,parts-lib,FPC_1x5_TopContact_P=0.5mm
+J5,FPC_1x5_TopContact_P=0.5mm,,LCSC,C388691,XKB Enterprise,X05B20U05T,FFC,FPC connector SMD, P=0.5mm, Top Contact, Slide Lock,,,,,,,,parts-lib,FPC_1x5_TopContact_P=0.5mm
+SW7,DualShock-4Buttons,parts-lib,DualShock-4Buttons
