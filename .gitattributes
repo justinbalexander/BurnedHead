@@ -12,3 +12,12 @@ outputs/BurnedHead-F_Cu.gbr filter=lfs diff=lfs merge=lfs -text
 outputs/BurnedHead-F_Mask.gbr filter=lfs diff=lfs merge=lfs -text
 outputs/BurnedHead-NPTH.drl filter=lfs diff=lfs merge=lfs -text
 outputs/BurnedHead-PTH.drl filter=lfs diff=lfs merge=lfs -text
+renders/BurnedHead-Back.jpg filter=lfs diff=lfs merge=lfs -text
+renders/BurnedHead-Front.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.gbr filter=lfs diff=lfs merge=lfs -text
+*.drl filter=lfs diff=lfs merge=lfs -text
+*.pdf filter=lfs diff=lfs merge=lfs -text
+CubeMX/* filter=lfs diff=lfs merge=lfs -text
+*.pro filter=lfs diff=lfs merge=lfs -text
+*.sch filter=lfs diff=lfs merge=lfs -text
