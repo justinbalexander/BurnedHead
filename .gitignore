@@ -24,3 +24,9 @@ _autosave-*
 # Exported BOM files
 *.xml
 *.csv
+
+# Zig
+zig-cache
+
+# gdbserver
+gdbserver.log
