@@ -14,7 +14,7 @@ extern var _edata: u8;
 extern var _bss: u8;
 extern var _ebss: u8;
 
-const IsrHandler = extern fn () void;
+const IsrHandler = fn () callconv(.C) void;
 
 comptime {
     asm (
