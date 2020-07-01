@@ -1,4 +1,4 @@
-const cm = @import("zig-cortex/cm7.zig");
+const cm = @import("zig-cortex/v7m.zig");
 const std = @import("std");
 usingnamespace @import("STM32F7x7.zig");
 
@@ -44,17 +44,17 @@ pub const lcd_clock = (((vco_input_freq * pllsain) / pllsair) / 2);
 pub const sys_tick_priority = 15;
 
 pub fn init() void {
-    cm.SCB.ICache.enable();
-    cm.SCB.DCache.enable();
+    cm.ICache.enable();
+    cm.DCache.enable();
     // all bits to priority groups, no sub-priority bits
-    cm.SCB.PriorityBitsGrouping.set(.GroupPriorityBits_4);
+    cm.PriorityBitsGrouping.set(.GroupPriorityBits_4);
     initSysTick();
     initClocks();
 }
 
 fn initSysTick() void {
-    cm.SysTick.config(cpu.nvic_prio_bits, .External, true, true, (xtal / 1000) - 1);
-    cm.SCB.Exceptions.SysTickHandler.setPriority(cpu.nvic_prio_bits, sys_tick_priority);
+    cm.SysTick.config(.External, true, true, (xtal / 1000) - 1);
+    cm.Exceptions.SysTickHandler.setPriority(sys_tick_priority);
 }
 
 fn initClocks() void {

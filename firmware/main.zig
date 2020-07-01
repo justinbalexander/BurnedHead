@@ -1,7 +1,7 @@
 const std = @import("std");
 const hw = @import("hardware.zig");
 const reg = @import("STM32F7x7.zig");
-const cpu = @import("zig-cortex/cm7.zig");
+const cpu = @import("zig-cortex/v7m.zig");
 
 comptime {
     // force a reference to file
