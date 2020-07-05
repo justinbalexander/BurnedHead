@@ -1,3 +1,299 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4929171e3aa1fa79eb00db537b401fb14319663d670b0cff9d1215a1da887453
-size 7115
+EESchema Schematic File Version 4
+LIBS:BurnedHead-cache
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 5 6
+Title "Micro SD"
+Date "2019-11-10"
+Rev "A"
+Comp "Justin Alexander"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L parts-lib:DM3AT-SF-PEJMS J3
+U 1 1 5D7F75BF
+P 6550 3825
+F 0 "J3" H 6500 4642 50  0000 C CNN
+F 1 "DM3AT-SF-PEJMS" H 6500 4551 50  0000 C CNN
+F 2 "Connector_Card:microSD_HC_Hirose_DM3AT-SF-PEJM5" H 8600 4525 50  0001 C CNN
+F 3 "https://datasheet.lcsc.com/szlcsc/Hirose-HRS-DM3AT-SF-PEJM5_C114218.pdf" H 6550 3925 50  0001 C CNN
+F 4 "DM3AT-SF-PEJMS" H 6760 4095 50  0001 C CNN "Part No."
+F 5 "Hirose" H 6660 3995 50  0001 C CNN "Manufacturer"
+F 6 "LCSC" H 6660 3995 50  0001 C CNN "Distributor"
+F 7 "C114218" H 6660 3995 50  0001 C CNN "Distributor Part No."
+F 8 "microSD socket, push-push, card detect normally open" H 6660 3995 50  0001 C CNN "Description"
+	1    6550 3825
+	0    1    1    0   
+$EndComp
+Text HLabel 5350 1600 0    50   Input ~ 0
+3V3
+Text HLabel 5525 4775 0    50   Input ~ 0
+VSS
+Text HLabel 5600 1950 0    50   Input ~ 0
+SDMMC_CMD
+Text HLabel 5600 2050 0    50   Input ~ 0
+SDMMC_CK
+Text HLabel 5375 2700 0    50   Input ~ 0
+SDMMC_DETECT
+Text HLabel 5375 2600 0    50   Input ~ 0
+SDMMC_D[0...3]
+Entry Wire Line
+	5500 2250 5600 2150
+Entry Wire Line
+	5500 2350 5600 2250
+Entry Wire Line
+	5500 2450 5600 2350
+Entry Wire Line
+	5500 2550 5600 2450
+Wire Wire Line
+	6950 2350 5600 2350
+Wire Bus Line
+	5500 2600 5375 2600
+Text Label 5600 2150 0    50   ~ 0
+SDMMC_D0
+Text Label 5600 2250 0    50   ~ 0
+SDMMC_D1
+Text Label 5600 2350 0    50   ~ 0
+SDMMC_D2
+Text Label 5600 2450 0    50   ~ 0
+SDMMC_D3
+Wire Wire Line
+	6450 2925 6450 2875
+Wire Wire Line
+	6450 2875 6050 2875
+Text Notes 5400 2675 0    50   ~ 0
+Internal pull-up
+Wire Wire Line
+	5375 2700 6150 2700
+Wire Wire Line
+	5750 4775 5525 4775
+Wire Wire Line
+	6550 2050 5600 2050
+Wire Wire Line
+	5600 1950 6375 1950
+Wire Wire Line
+	6050 4625 5750 4625
+Connection ~ 5750 4625
+Wire Wire Line
+	5750 4625 5750 4775
+Wire Wire Line
+	5750 2875 5750 4625
+Wire Wire Line
+	6050 2925 6050 2875
+Connection ~ 6050 2875
+Wire Wire Line
+	6050 2875 5750 2875
+$Comp
+L Device:R_Small R26
+U 1 1 5D8DEA23
+P 6950 1775
+F 0 "R26" H 7009 1821 50  0000 L CNN
+F 1 "47K" H 7009 1730 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 6950 1775 50  0001 C CNN
+F 3 "~" H 6950 1775 50  0001 C CNN
+	1    6950 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R25
+U 1 1 5D8DEB04
+P 6700 1775
+F 0 "R25" H 6759 1821 50  0000 L CNN
+F 1 "47K" H 6759 1730 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 6700 1775 50  0001 C CNN
+F 3 "~" H 6700 1775 50  0001 C CNN
+	1    6700 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R24
+U 1 1 5D8DEB90
+P 6375 1775
+F 0 "R24" H 6434 1821 50  0000 L CNN
+F 1 "47K" H 6434 1730 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 6375 1775 50  0001 C CNN
+F 3 "~" H 6375 1775 50  0001 C CNN
+	1    6375 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R23
+U 1 1 5D8DEC50
+P 6125 1775
+F 0 "R23" H 6184 1821 50  0000 L CNN
+F 1 "47K" H 6184 1730 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 6125 1775 50  0001 C CNN
+F 3 "~" H 6125 1775 50  0001 C CNN
+	1    6125 1775
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R22
+U 1 1 5D8DECF8
+P 6025 1775
+F 0 "R22" H 5800 1850 50  0000 L CNN
+F 1 "47K" H 5800 1725 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" H 6025 1775 50  0001 C CNN
+F 3 "~" H 6025 1775 50  0001 C CNN
+	1    6025 1775
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 1600 6950 1675
+Wire Wire Line
+	6700 1675 6700 1600
+Connection ~ 6700 1600
+Wire Wire Line
+	6700 1600 6950 1600
+Connection ~ 6950 2350
+Wire Wire Line
+	6700 1875 6700 2450
+Wire Wire Line
+	5600 2450 6700 2450
+Connection ~ 6700 2450
+Wire Wire Line
+	6700 2450 6850 2450
+Wire Wire Line
+	6375 1875 6375 1950
+Connection ~ 6375 1950
+Wire Wire Line
+	6375 1950 6750 1950
+Wire Wire Line
+	6375 1675 6375 1600
+Connection ~ 6375 1600
+Wire Wire Line
+	6150 2700 6150 2925
+Wire Wire Line
+	6250 2250 6250 2925
+Wire Wire Line
+	6350 2150 6350 2925
+Wire Wire Line
+	6550 2050 6550 2925
+Wire Wire Line
+	6750 1950 6750 2925
+Wire Wire Line
+	6850 2450 6850 2925
+Wire Wire Line
+	6950 2350 6950 2925
+Wire Wire Line
+	6950 1875 6950 2350
+Wire Wire Line
+	5600 2150 6125 2150
+Wire Wire Line
+	6375 1600 6125 1600
+Connection ~ 6125 1600
+Wire Wire Line
+	6125 1675 6125 1600
+Wire Wire Line
+	6025 1600 5350 1600
+Wire Wire Line
+	6125 1600 6025 1600
+Connection ~ 6025 1600
+Wire Wire Line
+	6025 1675 6025 1600
+Wire Wire Line
+	5600 2250 6025 2250
+Wire Wire Line
+	6125 1875 6125 2150
+Connection ~ 6125 2150
+Wire Wire Line
+	6125 2150 6350 2150
+Wire Wire Line
+	6025 1875 6025 2250
+Connection ~ 6025 2250
+Wire Wire Line
+	6025 2250 6250 2250
+$Comp
+L parts-lib:C1uF C29
+U 1 1 5D8E75FD
+P 5000 3250
+F 0 "C29" H 5092 3296 50  0000 L CNN
+F 1 "C1uF" H 5092 3205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5000 3250 50  0001 C CNN
+F 3 "https://datasheet.lcsc.com/szlcsc/YAGEO-CC0603KRX7R7BB105_C106248.pdf" H 5000 3250 50  0001 C CNN
+F 4 "CC0603KRX7R7BB105" H 5210 3520 50  0001 C CNN "Part No."
+F 5 "Yageo" H 5110 3420 50  0001 C CNN "Manufacturer"
+F 6 "LCSC" H 5110 3420 50  0001 C CNN "Distributor"
+F 7 "C272771" H 5110 3420 50  0001 C CNN "Distributor Part No."
+	1    5000 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L parts-lib:C100nF C30
+U 1 1 5D8E77AB
+P 5350 3250
+F 0 "C30" H 5442 3296 50  0000 L CNN
+F 1 "C100nF" H 5442 3205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0603_1608Metric" H 5350 3250 50  0001 C CNN
+F 3 "https://datasheet.lcsc.com/szlcsc/YAGEO-CC0603KRX7R9BB104_C14663.pdf" H 5350 3250 50  0001 C CNN
+F 4 "AC0603KRX7R9BB104" H 5560 3520 50  0001 C CNN "Part No."
+F 5 "Yageo" H 5460 3420 50  0001 C CNN "Manufacturer"
+F 6 "LCSC" H 5460 3420 50  0001 C CNN "Distributor"
+F 7 "C149620" H 5460 3420 50  0001 C CNN "Distributor Part No."
+	1    5350 3250
+	1    0    0    -1  
+$EndComp
+Text Label 5400 1600 0    50   ~ 0
+VDD
+Text Label 5550 4775 0    50   ~ 0
+VSS
+Text Label 4475 3150 0    50   ~ 0
+VDD
+Wire Wire Line
+	5350 3150 5125 3150
+Connection ~ 5000 3150
+Wire Wire Line
+	5000 3150 4850 3150
+Text Label 4775 3350 0    50   ~ 0
+VSS
+Wire Wire Line
+	5350 3350 5000 3350
+Connection ~ 5000 3350
+Wire Wire Line
+	4775 3350 5000 3350
+Wire Wire Line
+	6375 1600 6700 1600
+Wire Wire Line
+	6650 2925 6650 2800
+$Comp
+L Device:R_Small R21
+U 1 1 5D846E49
+P 4750 3150
+F 0 "R21" V 4575 3100 50  0000 L CNN
+F 1 "2R2" V 4650 3075 50  0000 L CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" H 4750 3150 50  0001 C CNN
+F 3 "~" H 4750 3150 50  0001 C CNN
+	1    4750 3150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5350 2800 5350 3150
+Wire Wire Line
+	5350 2800 6650 2800
+Connection ~ 5350 3150
+Wire Wire Line
+	4650 3150 4475 3150
+$Comp
+L power:PWR_FLAG #FLG05
+U 1 1 5D97F5A4
+P 5125 3150
+F 0 "#FLG05" H 5125 3225 50  0001 C CNN
+F 1 "PWR_FLAG" H 5125 3324 50  0000 C CNN
+F 2 "" H 5125 3150 50  0001 C CNN
+F 3 "~" H 5125 3150 50  0001 C CNN
+	1    5125 3150
+	1    0    0    -1  
+$EndComp
+Connection ~ 5125 3150
+Wire Wire Line
+	5125 3150 5000 3150
+Text Label 5350 3000 0    50   ~ 0
+SD_VDD
+Wire Bus Line
+	5500 2250 5500 2600
+$EndSCHEMATC
