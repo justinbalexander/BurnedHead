@@ -25,7 +25,7 @@ comptime {
 }
 
 export const isrVectors linksection(".isr_vector") = [_]IsrHandler{
-    @ptrCast(IsrHandler, Reset_Handler),
+    Reset_Handler,
     NMI_Handler,
     HardFault_Handler,
     MemManage_Handler,
@@ -154,7 +154,7 @@ export const isrVectors linksection(".isr_vector") = [_]IsrHandler{
     MDIOS_IRQHandler, // MDIOS
 };
 
-export fn Reset_Handler() callconv(.Naked) noreturn {
+export fn Reset_Handler() noreturn {
     const init_data_length = @ptrToInt(&_edata) - @ptrToInt(&_data);
     const init_data_slice = @ptrCast([*]u8, &_ldata)[0..init_data_length];
     var ram_data_slice = @ptrCast([*]u8, &_data)[0..init_data_length];
