@@ -186,7 +186,7 @@ pub const Pin = enum(u8) {
     pub fn clearByInteger(integer: u8) void {
         if (integer >= pin_layout.len) return;
         const layout = pin_layout[integer];
-        const register = mode_registers[layout.port];
+        const register = set_clear_registers[layout.port];
         register.* = @as(u32, 0x1) << (layout.pin + 16);
     }
 
