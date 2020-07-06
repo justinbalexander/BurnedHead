@@ -1,7 +1,7 @@
 const std = @import("std");
 const builtin = std.builtin;
+const cpu = @import("zig-cortex/v7m.zig");
 
-const reg = @import("STM32F7x7.zig");
 const main = @import("main.zig");
 
 ///****************************************************************************
@@ -169,15 +169,10 @@ export fn Reset_Handler() callconv(.Naked) noreturn {
     std.mem.set(u8, bss_slice, 0);
 
     if (builtin.abi == .eabihf) {
-        enableFPU();
+        cpu.FloatingPoint.enable();
     }
 
     main.main();
-}
-
-fn enableFPU() void {
-    // Set CP10 and CP11 Full Access
-    reg.FPU_CPACR_CPACR_Ptr.* |= reg.FPU_CPACR_CPACR_CP_Mask;
 }
 
 inline fn Default_Handler() void {
