@@ -26,7 +26,7 @@ pub fn init() void {
 }
 
 pub const Mode = enum(u2) {
-    Input, Output, Alternate1, Alternate2
+    Input, Output, Alternate, Analog
 };
 
 pub const Speed = enum(u2) {
@@ -485,6 +485,10 @@ const alternate_function_registers = [_]*volatile u32{
 const initial_settings = init: {
     var array = [_]InitialPinSettings{.{}} ** Pin.max_value;
     array[@enumToInt(Pin.LCD_NRESET)] = .{ .mode = .Output };
+    array[@enumToInt(Pin.SWDIO)] = .{ .mode = .Alternate };
+    array[@enumToInt(Pin.SWCLK)] = .{ .mode = .Alternate };
+    array[@enumToInt(Pin.SWO)] = .{ .mode = .Alternate };
+
     break :init array;
 };
 
