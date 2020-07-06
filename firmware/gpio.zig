@@ -168,6 +168,13 @@ pub const Pin = enum(u8) {
     const Self = @This();
     pub const max_value = @enumToInt(Self.SDNCAS);
 
+    pub fn get(comptime self: Self) bool {
+        const integer = @enumToInt(self);
+        const layout = pin_layout[integer];
+        const register = input_data_registers[layout.port];
+        return (@as(u32, 0x1) << layout.pin) > 0;
+    }
+
     pub fn set(comptime self: Self) void {
         setByInteger(@enumToInt(self));
     }
@@ -397,6 +404,16 @@ const pin_layout = init: {
     break :init array;
 };
 // zig fmt: on
+
+const input_data_registers = [_]*volatile u32{
+    reg.GPIOA_IDR_Ptr,
+    reg.GPIOB_IDR_Ptr,
+    reg.GPIOC_IDR_Ptr,
+    reg.GPIOD_IDR_Ptr,
+    reg.GPIOE_IDR_Ptr,
+    reg.GPIOF_IDR_Ptr,
+    reg.GPIOG_IDR_Ptr,
+};
 
 const set_clear_registers = [_]*volatile u32{
     reg.GPIOA_BSRR_Ptr,
