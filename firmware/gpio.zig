@@ -2,6 +2,7 @@ const std = @import("std");
 const reg = @import("STM32F7x7.zig");
 
 const InitialPinSettings = struct {
+    pin: u8,
     set: bool = false,
     mode: Mode = .Input,
     speed: Speed = .Low,
@@ -11,17 +12,16 @@ const InitialPinSettings = struct {
 };
 
 pub fn init() void {
-    for (initial_settings) |setting, i| {
-        const pin_number = @intCast(u8, i);
+    for (initial_settings) |setting| {
         if (setting.set)
-            Pin.setByInteger(pin_number)
+            Pin.setByInteger(setting.pin)
         else
-            Pin.clearByInteger(pin_number);
-        Pin.setSpeedByInteger(pin_number, setting.speed);
-        Pin.setOutputTypeByInteger(pin_number, setting.output_type);
-        Pin.setPullByInteger(pin_number, setting.pull);
-        Pin.setAlternateFunctionByInteger(pin_number, setting.af);
-        Pin.setModeByInteger(pin_number, setting.mode);
+            Pin.clearByInteger(setting.pin);
+        Pin.setSpeedByInteger(setting.pin, setting.speed);
+        Pin.setOutputTypeByInteger(setting.pin, setting.output_type);
+        Pin.setPullByInteger(setting.pin, setting.pull);
+        Pin.setAlternateFunctionByInteger(setting.pin, setting.af);
+        Pin.setModeByInteger(setting.pin, setting.mode);
     }
 }
 
@@ -482,14 +482,11 @@ const alternate_function_registers = [_]*volatile u32{
     reg.GPIOG_AFRH_Ptr,
 };
 
-const initial_settings = init: {
-    var array = [_]InitialPinSettings{.{}} ** Pin.max_value;
-    array[@enumToInt(Pin.LCD_NRESET)] = .{ .mode = .Output };
-    array[@enumToInt(Pin.SWDIO)] = .{ .mode = .Alternate };
-    array[@enumToInt(Pin.SWCLK)] = .{ .mode = .Alternate };
-    array[@enumToInt(Pin.SWO)] = .{ .mode = .Alternate };
-
-    break :init array;
+const initial_settings = [_]InitialPinSettings{
+    .{
+        .pin = @enumToInt(Pin.LCD_NRESET),
+        .mode = .Output,
+    },
 };
 
 test "ref" {
