@@ -13,6 +13,7 @@ const InitialPinSettings = struct {
 
 pub fn init() void {
     for (initial_settings) |setting| {
+        Pin.setAlternateFunctionByInteger(setting.pin, setting.af);
         if (setting.set)
             Pin.setByInteger(setting.pin)
         else
@@ -20,7 +21,6 @@ pub fn init() void {
         Pin.setSpeedByInteger(setting.pin, setting.speed);
         Pin.setOutputTypeByInteger(setting.pin, setting.output_type);
         Pin.setPullByInteger(setting.pin, setting.pull);
-        Pin.setAlternateFunctionByInteger(setting.pin, setting.af);
         Pin.setModeByInteger(setting.pin, setting.mode);
     }
 }
@@ -487,6 +487,45 @@ const initial_settings = [_]InitialPinSettings{
         .pin = @enumToInt(Pin.LCD_NRESET),
         .mode = .Output,
     },
+    .{ .pin = @enumToInt(Pin.A0), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A1), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A2), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A3), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A4), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A5), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A6), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A7), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A8), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A9), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A10), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A11), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.A12), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D0), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D1), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D2), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D3), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D4), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D5), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D6), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D7), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D8), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D9), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D10), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D11), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D12), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D13), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D14), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.D15), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.BA0), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.BA1), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.SDNRAS), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.SDNCAS), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.SDNWE), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.SDNCS), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.DQM0), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.DQM1), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.SDCLK), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
+    .{ .pin = @enumToInt(Pin.SDCKE), .speed = .VeryHigh, .mode = .Alternate, .af = 12 },
 };
 
 test "ref" {
