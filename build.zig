@@ -2,8 +2,10 @@ const std = @import("std");
 const Builder = std.build.Builder;
 const builtin = @import("builtin");
 
+const main_file = "firmware/main.zig";
+
 pub fn build(b: *Builder) void {
-    const exe = b.addExecutable("executable.elf", "firmware/main.zig");
+    const exe = b.addExecutable("executable.elf", main_file);
     const mode = embeddedFriendlyReleaseOptions(b);
     exe.setBuildMode(mode);
     exe.setLinkerScriptPath("firmware/linker.ld");
@@ -14,6 +16,21 @@ pub fn build(b: *Builder) void {
             .cpu_features = "cortex_m7",
         }) catch unreachable,
     );
+
+    const build_docs = b.addSystemCommand(&[_][]const u8{
+        b.zig_exe,
+        "test",
+        main_file,
+        "-target",
+        "arm-linux-eabihf", // must use arm-linux in order for tests to build
+        "-mcpu=cortex_m7",
+        "-femit-docs",
+        "-fno-emit-bin",
+        "--output-dir",
+        ".",
+    });
+    const doc_step = b.step("docs", "Builds docs");
+    doc_step.dependOn(&build_docs.step);
 
     b.default_step.dependOn(&exe.step);
     exe.install();
