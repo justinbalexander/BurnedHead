@@ -2,6 +2,10 @@ const cm = @import("zig-cortex/v7m.zig");
 const std = @import("std");
 const gpio = @import("gpio.zig");
 const reg = @import("STM32F7x7.zig");
+const max = std.math.max;
+const mono = @import("monotonic.zig");
+
+extern var _start_sdram: u8;
 
 const Pllp = enum(u2) {
     PLLP_2 = 0,
@@ -40,6 +44,8 @@ pub const apb2_peripheral_clock = hclk / apb2_prescaler;
 pub const apb2_timer_clock = apb2_peripheral_clock * 2;
 pub const sdmmc1_clock = 48000000; // max sdmmc1 frequency
 pub const lcd_clock = (((vco_input_freq * pllsain) / pllsair) / 2);
+pub const sdram_clock_div = 2; // 2 or 3 allowed
+pub const sdram_clock = hclk / sdram_clock_div;
 // TODO: assert at compile time
 
 pub const sys_tick_priority = 15;
@@ -52,10 +58,11 @@ pub fn init() void {
     initSysTick();
     initClocks();
     gpio.init();
+    initSdram();
 }
 
 fn initSysTick() void {
-    cm.SysTick.config(.External, true, true, (xtal / 1000) - 1);
+    cm.SysTick.config(.External, true, true, (xtal / 10_000) - 1);
     cm.Exceptions.SysTickHandler.setPriority(sys_tick_priority);
 }
 
@@ -195,4 +202,107 @@ fn hclkToWaitStates(comptime clk: comptime_int) u4 {
     } else {
         return 7;
     }
+}
+
+fn tenthOfNsToSdramClockCycles(tenth_ns: u32) u32 {
+    const tenths_of_ns_per_clock = 10_000_000_000 / sdram_clock;
+    return (tenth_ns + (tenths_of_ns_per_clock - 1)) / tenths_of_ns_per_clock;
+}
+
+const trcd_cycles = tenthOfNsToSdramClockCycles(180) - 1;
+const trp_cycles = tenthOfNsToSdramClockCycles(180) - 1;
+const twr_cycles = max(max(tenthOfNsToSdramClockCycles(60) + 1 - 1, tras_cycles - trcd_cycles), trc_cycles - trcd_cycles - trp_cycles);
+const trc_cycles = tenthOfNsToSdramClockCycles(600) - 1;
+const tras_cycles = tenthOfNsToSdramClockCycles(420) - 1;
+const cas_latency = 3;
+const refresh_rate = ((64 * sdram_clock) / (1000 * 8196)) - 20;
+comptime {
+    std.debug.assert(refresh_rate != (twr_cycles + trp_cycles + trc_cycles + trcd_cycles + 4));
+}
+
+/// RM0410 Rev 4. Section 13.7.3
+/// MT48LC16M16A2P-6A datasheed (09005aef8091e6d1 Rev W)
+fn initSdram() void {
+    //1. Program the memory device features into the FMC_SDCRx register. The
+    //SDRAM clock frequency, RBURST and RPIPE must be programmed in the
+    //FMC_SDCR1 register.
+    reg.FMC_SDCR1_Ptr.* =
+        reg.FMC_SDCR1_RPIPE(2) | // delay in hclk cycles for reading data after CAS latency
+        reg.FMC_SDCR1_RBURST(1) | // use burst read functionality
+        reg.FMC_SDCR1_SDCLK(sdram_clock_div) |
+        reg.FMC_SDCR1_CAS(cas_latency) | // CAS latency
+        reg.FMC_SDCR1_NB(1) | // four internal banks
+        reg.FMC_SDCR1_MWID(2) | // 16 bit memory data bus width
+        reg.FMC_SDCR1_NR(2) | // 13 row address bits
+        reg.FMC_SDCR1_NC(1); // 9 column address bits
+
+    //2. Program the memory device timing into the FMC_SDTRx register. The
+    //TRP and TRC timings must be programmed in the FMC_SDTR1 register.
+    reg.FMC_SDTR1_Ptr.* =
+        reg.FMC_SDTR1_TRCD(trcd_cycles) |
+        reg.FMC_SDTR1_TRP(trp_cycles) |
+        reg.FMC_SDTR1_TWR(twr_cycles) |
+        reg.FMC_SDTR1_TRC(trc_cycles) |
+        reg.FMC_SDTR1_TRAS(tras_cycles) |
+        reg.FMC_SDTR1_TXSR(tenthOfNsToSdramClockCycles(670) - 1) |
+        reg.FMC_SDTR1_TMRD(2 - 1);
+
+    //3. Set MODE bits to ‘001’ and configure the Target Bank bits (CTB1
+    //and/or CTB2) in the FMC_SDCMR register to start delivering the clock to
+    //the memory (SDCKE is driven high).
+    reg.FMC_SDCMR_Ptr.* =
+        reg.FMC_SDCMR_CTB1(1) |
+        reg.FMC_SDCMR_MODE(0b001);
+
+    //4. Wait during the prescribed delay period. Typical delay is around
+    //100μs (refer to the SDRAM datasheet for the required delay after
+    //power-up).
+    var delay = mono.Timer(.US_100).init(2);
+    while (!delay.hasMatched()) {}
+
+    //5. Set MODE bits to ‘010’ and configure the Target Bank bits (CTB1
+    //and/or CTB2) in the FMC_SDCMR register to issue a “Precharge All”
+    //command.
+    reg.FMC_SDCMR_Ptr.* =
+        reg.FMC_SDCMR_CTB1(1) |
+        reg.FMC_SDCMR_MODE(0b010);
+
+    //6. Set MODE bits to ‘011’, and configure the Target Bank bits (CTB1
+    //and/or CTB2) as well as the number of consecutive Auto-refresh commands
+    //(NRFS) in the FMC_SDCMR register. Refer to the SDRAM datasheet for the
+    //number of Auto-refresh commands that should be issued. Typical number is
+    //8.
+    reg.FMC_SDCMR_Ptr.* =
+        reg.FMC_SDCMR_CTB1(1) |
+        reg.FMC_SDCMR_NRFS(2 - 1) |
+        reg.FMC_SDCMR_MODE(0b011);
+
+    //7. Configure the MRD field according to the SDRAM device, set the
+    //MODE bits to '100', and configure the Target Bank bits (CTB1 and/or CTB2)
+    //in the FMC_SDCMR register to issue a "Load Mode Register" command in
+    //order to program the SDRAM device.In particular:a)    the CAS latency
+    //must be selected following configured value in FMC_SDCR1/2 registersb)
+    //the Burst Length (BL) of 1 must be selected by configuring the M[2:0]
+    //bits to 000 in the mode register. Refer to SDRAM device datasheet.If the
+    //Mode Register is not the same for both SDRAM banks, this step has to be
+    //repeated twice, once for each bank, and the Target Bank bits set
+    //accordingly.
+    reg.FMC_SDCMR_Ptr.* =
+        reg.FMC_SDCMR_CTB1(1) |
+        reg.FMC_SDCMR_MRD(cas_latency << 4) |
+        reg.FMC_SDCMR_MODE(0b100);
+
+    //8. Program the refresh rate in the FMC_SDRTR registerThe refresh rate
+    //corresponds to the delay between refresh cycles. Its value must be
+    //adapted to SDRAM devices.
+    reg.FMC_SDRTR_Ptr.* = reg.FMC_SDRTR_COUNT(refresh_rate);
+
+    //9. For mobile SDRAM devices, to program the extended mode register it
+    //should be done once the SDRAM device is initialized: First, a dummy read
+    //access should be performed while BA1=1 and BA=0 (refer to SDRAM address
+    //mapping section for BA[1:0] address mapping) in order to select the
+    //extended mode register instead of the load mode register and then program
+    //the needed value.
+    delay.set(500);
+    while (!delay.hasMatched()) {}
 }

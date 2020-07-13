@@ -213,7 +213,16 @@ export fn PendSV_Handler() void {
 }
 
 export fn SysTick_Handler() void {
-    // empty
+    const mono = @import("monotonic.zig");
+    const Static = struct {
+        var count: u8 = 0;
+    };
+    mono.tick(.US_100);
+    Static.count += 1;
+    if (Static.count >= 10) {
+        Static.count = 0;
+        mono.tick(.MS_1);
+    }
 }
 
 export fn WWDG_IRQHandler() void {
