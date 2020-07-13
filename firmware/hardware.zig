@@ -22,7 +22,7 @@ const pllsain = 192;
 const pllsaiq = 2; // don't care
 const pllsair = 2;
 const pllsaip = Pllp.PLLP_8; // don't care, more division == less power
-const pllclk = 432000000;
+const pllclk = 432_000_000;
 
 pub const sysclk = pllclk / 2;
 pub const hclk = sysclk;
