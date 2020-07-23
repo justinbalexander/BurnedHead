@@ -264,7 +264,7 @@ pub const Pin = enum(u8) {
     pub fn setAlternateFunctionByInteger(integer: u8, alt: AlternateFunction) void {
         if (integer >= pin_layout.len) return;
         const layout = pin_layout[integer];
-        const register = alternate_function_registers[(layout.port * 2) + @boolToInt(layout.pin >= 8)];
+        const register = alternate_function_registers[(@as(usize,layout.port) * 2) + @boolToInt(layout.pin >= 8)];
         const shift = (layout.pin & 7) * 4;
 
         const af_num: u32 = alt;
