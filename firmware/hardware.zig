@@ -232,7 +232,7 @@ fn initSdram() void {
         reg.FMC_SDCR1_SDCLK(sdram_clock_div) |
         reg.FMC_SDCR1_CAS(cas_latency) | // CAS latency
         reg.FMC_SDCR1_NB(1) | // four internal banks
-        reg.FMC_SDCR1_MWID(2) | // 16 bit memory data bus width
+        reg.FMC_SDCR1_MWID(0b01) | // 16 bit memory data bus width
         reg.FMC_SDCR1_NR(2) | // 13 row address bits
         reg.FMC_SDCR1_NC(1); // 9 column address bits
 
