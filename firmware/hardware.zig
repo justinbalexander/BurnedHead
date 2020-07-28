@@ -79,7 +79,7 @@ fn initClocks() void {
 
     var pllcfgr = reg.RCC_PLLCFGR_Ptr.*;
     pllcfgr &= ~@as(u32, reg.RCC_PLLCFGR_Write_Mask);
-    reg.RCC_PLLCFGR_Ptr.* |=
+    reg.RCC_PLLCFGR_Ptr.* =
         pllcfgr |
         reg.RCC_PLLCFGR_PLLM(pllm) |
         reg.RCC_PLLCFGR_PLLR(pllr) |
@@ -90,7 +90,7 @@ fn initClocks() void {
 
     var pllsaicfgr = reg.RCC_PLLSAICFGR_Ptr.*;
     pllcfgr &= ~@as(u32, reg.RCC_PLLSAICFGR_Write_Mask);
-    reg.RCC_PLLSAICFGR_Ptr.* |=
+    reg.RCC_PLLSAICFGR_Ptr.* =
         pllsaicfgr |
         reg.RCC_PLLSAICFGR_PLLSAIR(pllsair) |
         reg.RCC_PLLSAICFGR_PLLSAIQ(pllsaiq) |
