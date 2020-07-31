@@ -5,6 +5,7 @@ const reg = @import("STM32F7x7.zig");
 const max = std.math.max;
 const mono = @import("monotonic.zig");
 
+const sdram_size_bytes = 32 * 1024 * 1024;
 extern var _start_sdram: u8;
 
 const Pllp = enum(u2) {
@@ -51,14 +52,16 @@ pub const sdram_clock = hclk / sdram_clock_div;
 pub const sys_tick_priority = 15;
 
 pub fn init() void {
-    cm.ICache.enable();
-    cm.DCache.enable();
     // all bits to priority groups, no sub-priority bits
     cm.PriorityBitsGrouping.set(.GroupPriorityBits_4);
     initSysTick();
     initClocks();
     gpio.init();
     initSdram();
+    std.debug.assert(testSdram());
+    _ = fillAndCheckSdramMemory(u8, 0xAA);
+    cm.ICache.enable();
+    cm.DCache.enable();
 }
 
 fn initSysTick() void {
@@ -305,4 +308,50 @@ fn initSdram() void {
     //the needed value.
     delay.set(500);
     while (!delay.hasMatched()) {}
+}
+
+/// Performs software test of sdram to find hardware/layout issues
+fn testSdram() bool {
+    if (!sdramLoopAndCheck(u8, 257)) return false;
+    // charge and discharge as many bits in a row as possible
+    if (!fillAndCheckSdramMemory(u32, 0xFFFFFFFF)) return false;
+    if (!fillAndCheckSdramMemory(u32, 0x0)) return false;
+    if (!fillAndCheckSdramMemory(u32, 0xFFFFFFFF)) return false;
+    // try flipping bits back and forth
+    if (!fillAndCheckSdramMemory(u32, 0xAAAAAAAA)) return false;
+    if (!fillAndCheckSdramMemory(u32, 0x55555555)) return false;
+    if (!fillAndCheckSdramMemory(u32, 0xAAAAAAAA)) return false;
+    return true;
+}
+
+fn sdramLoopAndCheck(comptime T: type, loop_width: u32) bool {
+    const alignment = @alignOf(T);
+    var sdram = @ptrCast([*]volatile T, @alignCast(alignment, &_start_sdram));
+    var sdram_slice = sdram[0..(sdram_size_bytes / @sizeOf(T))];
+    var counter: u32 = 0;
+    while (counter < sdram_size_bytes - loop_width) : (counter += loop_width) {
+        for (sdram[counter..(counter + loop_width)]) |*byte, count| {
+            byte.* = @truncate(T, count);
+        }
+    }
+    counter = 0;
+    while (counter < sdram_size_bytes - loop_width) : (counter += loop_width) {
+        for (sdram[counter..(counter + loop_width)]) |byte, count| {
+            if (byte != @truncate(T, count)) return false;
+        }
+    }
+    return true;
+}
+
+fn fillAndCheckSdramMemory(comptime T: type, pattern: T) bool {
+    const alignment = @alignOf(T);
+    var sdram = @ptrCast([*]volatile T, @alignCast(alignment, &_start_sdram));
+    var sdram_slice = sdram[0..(sdram_size_bytes / @sizeOf(T))];
+    for (sdram_slice) |*unit| {
+        unit.* = pattern;
+    }
+    for (sdram_slice) |unit| {
+        if (unit != pattern) return false;
+    }
+    return true;
 }
