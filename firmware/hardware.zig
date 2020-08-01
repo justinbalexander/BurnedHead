@@ -313,6 +313,7 @@ fn initSdram() void {
 /// Performs software test of sdram to find hardware/layout issues
 fn testSdram() bool {
     if (!sdramLoopAndCheck(u8, 257)) return false;
+    if (!sdramLoopAndCheck(u16, 65537)) return false;
     // charge and discharge as many bits in a row as possible
     if (!fillAndCheckSdramMemory(u32, 0xFFFFFFFF)) return false;
     if (!fillAndCheckSdramMemory(u32, 0x0)) return false;
@@ -326,21 +327,24 @@ fn testSdram() bool {
 
 fn sdramLoopAndCheck(comptime T: type, loop_width: u32) bool {
     const alignment = @alignOf(T);
-    var sdram = @ptrCast([*]volatile T, @alignCast(alignment, &_start_sdram));
-    var sdram_slice = sdram[0..(sdram_size_bytes / @sizeOf(T))];
+    const sdram = @ptrCast([*]volatile T, @alignCast(alignment, &_start_sdram));
+    const sdram_slice = sdram[0..(sdram_size_bytes / @sizeOf(T))];
     var counter: u32 = 0;
-    while (counter < sdram_size_bytes - loop_width) : (counter += loop_width) {
-        for (sdram[counter..(counter + loop_width)]) |*byte, count| {
-            byte.* = @truncate(T, count);
+    for (sdram_slice) |*byte| {
+        byte.* = @truncate(T, counter);
+        counter += 1;
+        if (counter >= loop_width) {
+            counter = 0;
         }
     }
     counter = 0;
-    while (counter < sdram_size_bytes - loop_width) : (counter += loop_width) {
-        for (sdram[counter..(counter + loop_width)]) |byte, count| {
-            if (byte != @truncate(T, count)) return false;
+    return for (sdram_slice) |byte| {
+        if (byte != @truncate(T, counter)) break false;
+        counter += 1;
+        if (counter >= loop_width) {
+            counter = 0;
         }
-    }
-    return true;
+    } else true;
 }
 
 fn fillAndCheckSdramMemory(comptime T: type, pattern: T) bool {
