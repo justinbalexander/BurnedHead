@@ -173,7 +173,7 @@ pub const Pin = enum(u8) {
         const port = integer / 16;
         const pin = integer % 16;
         const register = input_data_registers[port];
-        return (@as(u32, 0x1) << @as(u5, pin)) > 0;
+        return (@as(u32, 0x1) << @intCast(u5, pin)) > 0;
     }
 
     pub fn set(self: Self) void {
@@ -407,4 +407,5 @@ const initial_settings = [_]InitialPinSettings{
 
 test "ref" {
     std.meta.refAllDecls(@This());
+    std.meta.refAllDecls(@This().Pin);
 }
