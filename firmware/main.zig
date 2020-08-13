@@ -4,6 +4,9 @@ const hw = @import("hardware.zig");
 const reg = @import("STM32F7x7.zig");
 const cpu = @import("zig-cortex/v7m.zig");
 
+// zig-cortex configuration variables
+pub const nvic_priority_bits = 4;
+
 comptime {
     // force a reference to file
     _ = @import("startup.zig");
