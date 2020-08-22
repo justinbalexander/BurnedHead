@@ -31,7 +31,7 @@ PCBs to anyone willing to pay the amortized cost of a PCB and shipping.
 
 # Building
 
-BurnedHead tries to keep up with the tip of the [Zig](https://www.ziglang.org) master
+BurnedHead tries to keep up with the tip of the [Zig](https://ziglang.org) master
 branch.
 
 [Latest Tested Commit](https://github.com/ziglang/zig/commit/083c0f1cebc763e4e43529b50f6df9839c32c1c7)
