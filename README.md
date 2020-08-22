@@ -22,9 +22,16 @@ There is only one line of assembly in the project due to a current bug in the
 Zig compiler, which sets the stack pointer address entry in the interrupt
 handlers.
 
+There are only two units in existence currently, but revision 1 will bring
+significant PCB updates and be assembled at the factory, so a minimum order
+quantity will have to be met. This project is intended solely to advance the
+usage of the Zig programming language in the embedded space and is not for
+profit. I will inform the Zig Discord server of the extras and mail out the new
+PCBs to anyone willing to pay the amortized cost of a PCB and shipping.
+
 # Building
 
-BurnedHead tries to keep up with the tip of the Zig (www.ziglang.org) master
+BurnedHead tries to keep up with the tip of the Zig [www.ziglang.org](www.ziglang.org) master
 branch.
 
 [Latest Tested Commit](https://github.com/ziglang/zig/commit/083c0f1cebc763e4e43529b50f6df9839c32c1c7)
