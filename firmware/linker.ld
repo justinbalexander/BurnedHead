@@ -1,3 +1,5 @@
+ENTRY(Reset_Handler)
+
 MEMORY
 {
     ITCM_FLASH (rx) : ORIGIN = 0x00200000, LENGTH = 0x00200000

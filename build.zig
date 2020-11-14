@@ -9,6 +9,7 @@ pub fn build(b: *Builder) void {
     const mode = embeddedFriendlyReleaseOptions(b);
     exe.setBuildMode(mode);
     exe.setLinkerScriptPath("firmware/linker.ld");
+    addHal(exe);
 
     exe.setTarget(
         std.zig.CrossTarget.parse(.{
@@ -52,4 +53,71 @@ fn embeddedFriendlyReleaseOptions(self: *Builder) builtin.Mode {
     self.is_release = mode != .ReleaseSafe;
     self.release_mode = mode;
     return mode;
+}
+
+fn addHal(exe: anytype) void {
+    const hal_source = [_][]const u8{
+        "CubeMX/Core/Src/main.c",
+        "CubeMX/Core/Src/stm32f7xx_it.c",
+        "CubeMX/Core/Src/stm32f7xx_hal_msp.c",
+        "CubeMX/Core/Src/system_stm32f7xx.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dac.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dac_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma2d.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_fmc.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sdram.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_jpeg.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_ltdc.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_ltdc_ex.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dsi.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_ll_sdmmc.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_sd.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c",
+        "CubeMX/Utilities/JPEG/jpeg_utils.c",
+    };
+    const clang_cpu_options = [_][]const u8{
+        "-mcpu=cortex-m7",
+        "-mfpu=fpv5-d16",
+        "-mfloat-abi=hard",
+        "-mthumb",
+    };
+    const clang_defines = [_][]const u8{
+        "-DUSE_HAL_DRIVER",
+        "-DSTM32F767xx",
+    };
+    const clang_includes = [_][]const u8{
+        "-ICubeMX/Core/Inc",
+        "-ICubeMX/Drivers/STM32F7xx_HAL_Driver/Inc",
+        "-ICubeMX/Drivers/STM32F7xx_HAL_Driver/Inc/Legacy",
+        "-ICubeMX/Utilities/JPEG",
+        "-ICubeMX/Drivers/CMSIS/Device/ST/STM32F7xx/Include",
+        "-ICubeMX/Drivers/CMSIS/Include",
+    };
+    const clang_flags_options = [_][]const u8{
+        "-Wall",
+        "-fdata-sections",
+        "-ffunction-sections",
+        "-ggdb3",
+    };
+
+    for (hal_source) |source| {
+        exe.addCSourceFile(source, &(clang_cpu_options ++ clang_defines ++ clang_includes ++ clang_flags_options));
+    }
 }

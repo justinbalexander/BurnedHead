@@ -12,8 +12,7 @@ comptime {
     _ = @import("startup.zig");
 }
 
-pub export fn main() noreturn {
-    hw.init();
+pub export fn zigMain() noreturn {
     while (true) {}
 }
 
