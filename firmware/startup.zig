@@ -2,8 +2,7 @@ const std = @import("std");
 const builtin = std.builtin;
 const cpu = @import("zig-cortex/v7m.zig");
 
-extern fn main() noreturn;
-extern fn SystemInit() void;
+extern fn zigMain() noreturn;
 
 ///****************************************************************************
 /// These are symbols that the linker will provide. They will have the address
@@ -173,9 +172,7 @@ export fn Reset_Handler() noreturn {
         cpu.FloatingPoint.enable();
     }
 
-    SystemInit();
-
-    main();
+    zigMain();
 }
 
 inline fn Default_Handler() void {

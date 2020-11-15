@@ -13,6 +13,7 @@ comptime {
 }
 
 pub export fn zigMain() noreturn {
+    hw.init();
     while (true) {}
 }
 
