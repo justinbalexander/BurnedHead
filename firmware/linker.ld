@@ -1,4 +1,4 @@
-ENTRY(Reset_Handler)
+ENTRY(isrVectors)
 
 MEMORY
 {
