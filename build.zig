@@ -114,6 +114,7 @@ fn addHal(exe: anytype) void {
         "-Wall",
         "-fdata-sections",
         "-ffunction-sections",
+        "-ffreestanding",
         "-ggdb3",
     };
 
