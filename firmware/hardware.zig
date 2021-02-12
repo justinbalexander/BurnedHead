@@ -4,6 +4,7 @@ const gpio = @import("gpio.zig");
 const reg = @import("STM32F7x7.zig");
 const max = std.math.max;
 const mono = @import("monotonic.zig");
+const sd = @import("hal_sd_wrapper.zig");
 
 const sdram_size_bytes = 32 * 1024 * 1024;
 extern var _start_sdram: u8;
@@ -62,6 +63,7 @@ pub fn init() void {
     _ = fillAndCheckSdramMemory(u8, 0xAA);
     cm.ICache.enable();
     cm.DCache.enable();
+    sd.init();
 }
 
 fn initSysTick() void {

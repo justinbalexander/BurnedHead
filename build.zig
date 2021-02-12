@@ -101,6 +101,8 @@ fn addHal(exe: anytype) void {
     const clang_defines = [_][]const u8{
         "-DUSE_HAL_DRIVER",
         "-DSTM32F767xx",
+        "-DSDMMC1",
+        "-DHAL_SD_MODULE_ENABLED",
     };
     const clang_includes = [_][]const u8{
         "-ICubeMX/Core/Inc",
