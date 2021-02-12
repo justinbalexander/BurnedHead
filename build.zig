@@ -121,4 +121,16 @@ fn addHal(exe: anytype) void {
     for (hal_source) |source| {
         exe.addCSourceFile(source, &(clang_cpu_options ++ clang_defines ++ clang_includes ++ clang_flags_options));
     }
+
+    const clang_include_dirs = [_][]const u8{
+        "CubeMX/Core/Inc",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Inc",
+        "CubeMX/Drivers/STM32F7xx_HAL_Driver/Inc/Legacy",
+        "CubeMX/Utilities/JPEG",
+        "CubeMX/Drivers/CMSIS/Device/ST/STM32F7xx/Include",
+        "CubeMX/Drivers/CMSIS/Include",
+    };
+    for (clang_include_dirs) |include_folder| {
+        exe.addIncludeDir(include_folder);
+    }
 }
