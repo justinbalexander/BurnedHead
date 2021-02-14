@@ -1,0 +1,7 @@
+MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS += --warn-undefined-variables
+
+.DEFAULT_GOAL := all
+
+BUILDTOP ?= build
+BUILDDIR = $(BUILDTOP)/$(TARGET)
