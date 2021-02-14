@@ -22,4 +22,4 @@ else
     exit -1
 fi
 
-${GDB} --quiet -x firmware/debug/debug.gdb zig-cache/bin/executable.elf
+${GDB} --quiet -x debug/debug.gdb "$1"
