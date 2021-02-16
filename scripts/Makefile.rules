@@ -1,6 +1,6 @@
 # TODO: Check for required variables
 
-OBJECTS := $(addprefix $(BUILDDIR)/,$(addsuffix .o, $(basename $(compiled-files))))
+OBJECTS := $(addprefix $(BUILDDIR)/,$(objects))
 
 -include $(OBJECTS:.o=.d)
 
