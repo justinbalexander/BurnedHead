@@ -1,10 +1,11 @@
 # TODO: Check for required variables
 
+libraries ?=
 OBJECTS := $(addprefix $(BUILDDIR)/,$(objects))
 
 -include $(OBJECTS:.o=.d)
 
-PHONY += all size
+.PHONY: all size clean
 
 all: $(BUILDDIR) \
 	$(BUILDDIR)/$(TARGET).elf \
@@ -12,27 +13,28 @@ all: $(BUILDDIR) \
 	size
 
 $(BUILDDIR):
-	mkdir -p $@
+	$(Q)mkdir -p $@
 
 $(BUILDDIR)/%.o: %.c
-	mkdir -p $(dir $@)
-	$(CC) -x c -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
+	$(Q)mkdir -p $(dir $@)
+	$(Q)$(CC) -x c -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
 
 $(BUILDDIR)/%.o: %.s
-	mkdir -p $(dir $@)
-	$(CC) -x assembler -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
+	$(Q)mkdir -p $(dir $@)
+	$(Q)$(CC) -x assembler -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
 
 $(BUILDDIR)/%.o: %.S
-	mkdir -p $(dir $@)
-	$(CC) -x assembler-with-cpp -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
+	$(Q)mkdir -p $(dir $@)
+	$(Q)$(CC) -x assembler-with-cpp -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
 
 $(BUILDDIR)/$(TARGET).elf: $(OBJECTS) $(libraries)
-	$(LD) $(CFLAGS_CPU) $(LDFLAGS) -T $(linker-script) $(OBJECTS) -Wl,--cref -Wl,-Map=$(@:.elf=.map) -Wl,--start-group $(libraries) -Wl,--end-group -o $@
+	$(Q)$(LD) $(CFLAGS_CPU) $(LDFLAGS) -T $(linker-script) $(OBJECTS) -Wl,--cref -Wl,-Map=$(@:.elf=.map) -Wl,--start-group $(libraries) -Wl,--end-group -o $@
 
 $(BUILDDIR)/$(TARGET).bin: $(BUILDDIR)/$(TARGET).elf
-	$(OBJCOPY) --strip-debug --strip-unneeded $< -O binary $@
+	$(Q)$(OBJCOPY) --strip-debug --strip-unneeded $< -O binary $@
 
 size: $(BUILDDIR)/$(TARGET).elf
-	$(SIZE) $<
+	$(Q)$(SIZE) $<
 
-.PHONY: $(PHONY)
+clean:
+	$(Q)rm -rf $(BUILDDIR)

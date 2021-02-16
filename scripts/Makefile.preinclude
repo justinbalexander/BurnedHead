@@ -5,3 +5,13 @@ MAKEFLAGS += --warn-undefined-variables
 
 BUILDTOP ?= build
 BUILDDIR = $(BUILDTOP)/$(TARGET)
+
+GetCurrentMakefile = $(lastword $(MAKEFILE_LIST))
+GetCurrentMakefileDirectory = $(dir $(call GetCurrentMakefile))
+MakeObjectsDependOnCurrentMakefile = $(addprefix $(BUILDDIR)/,$(1)): $(call GetCurrentMakefile)
+
+ifndef V
+  Q := @
+else
+  Q:=
+endif
