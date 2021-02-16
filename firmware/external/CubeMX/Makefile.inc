@@ -6,7 +6,8 @@ Drivers/CMSIS/Include \
 Drivers/STM32F7xx_HAL_Driver/Inc \
 Utilities/JPEG
 
-module_objects := Core/Src/main.o \
+module_objects := startup_stm32f767xx.o \
+Core/Src/main.o \
 Core/Src/stm32f7xx_hal_msp.o \
 Core/Src/stm32f7xx_it.o \
 Core/Src/system_stm32f7xx.o \

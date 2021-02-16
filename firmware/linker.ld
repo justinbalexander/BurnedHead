@@ -1,4 +1,4 @@
-ENTRY(isrVectors)
+ENTRY(Reset_Handler)
 
 MEMORY
 {
@@ -16,7 +16,6 @@ SECTIONS
     .text :
     {
         _text = .;
-        KEEP(*(.isr_vector_stack_val*))
         KEEP(*(.isr_vector*))
         *(.text*)
         *(.rodata*)
@@ -32,16 +31,15 @@ SECTIONS
 
     .data :
     {
-        _data = .;
-        _ldata = LOADADDR (.data);
-        *(vtable)
+        _sidata = LOADADDR (.data);
+        _sdata = .;
         *(.data*)
         _edata = .;
     } > SRAM2 AT> AXIM_FLASH
 
     .bss :
     {
-        _bss = .;
+        _sbss = .;
         *(.bss*)
         *(COMMON)
         _ebss = .;

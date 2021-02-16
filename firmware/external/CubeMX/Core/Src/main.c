@@ -127,6 +127,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    extern void user_main(void);
+    user_main();
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }
