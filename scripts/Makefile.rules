@@ -16,21 +16,26 @@ $(BUILDDIR):
 	$(Q)mkdir -p $@
 
 $(BUILDDIR)/%.o: %.c
+	@echo CC $<
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(CC) -x c -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
 
 $(BUILDDIR)/%.o: %.s
+	@echo CC $<
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(CC) -x assembler -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
 
 $(BUILDDIR)/%.o: %.S
+	@echo CC $<
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(CC) -x assembler-with-cpp -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
 
 $(BUILDDIR)/$(TARGET).elf: $(OBJECTS) $(libraries)
+	@echo LD $@
 	$(Q)$(LD) $(CFLAGS_CPU) $(LDFLAGS) -T $(linker-script) $(OBJECTS) -Wl,--cref -Wl,-Map=$(@:.elf=.map) -Wl,--start-group $(libraries) -Wl,--end-group -o $@
 
 $(BUILDDIR)/$(TARGET).bin: $(BUILDDIR)/$(TARGET).elf
+	@echo Generating Binary: $@
 	$(Q)$(OBJCOPY) --strip-debug --strip-unneeded $< -O binary $@
 
 size: $(BUILDDIR)/$(TARGET).elf
