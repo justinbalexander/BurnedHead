@@ -116,7 +116,7 @@ int main(void)
   MX_DAC_Init();
   MX_FMC_Init();
   MX_LTDC_Init();
-  MX_SDMMC1_SD_Init();
+//  MX_SDMMC1_SD_Init();
   MX_DMA2D_Init();
   MX_JPEG_Init();
   /* USER CODE BEGIN 2 */
