@@ -69,7 +69,7 @@ SECTIONS
         *(.data*)
         . = ALIGN(4);
         _edata = .;
-    } > SRAM2 AT> AXIM_FLASH
+    } > SRAM2 AT> ITCM_FLASH
 
     .bss :
     {
