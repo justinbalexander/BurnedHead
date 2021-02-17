@@ -30,7 +30,7 @@ $(BUILDDIR)/%.o: %.S
 	$(Q)mkdir -p $(dir $@)
 	$(Q)$(CC) -x assembler-with-cpp -MMD -MP $(CFLAGS_CPU) $(CFLAGS_DEFS) $(CFLAGS) $(CFLAGS_INC) -c $< -o $@
 
-$(BUILDDIR)/$(TARGET).elf: $(OBJECTS) $(libraries)
+$(BUILDDIR)/$(TARGET).elf: $(OBJECTS) $(libraries) $(linker-script)
 	@echo LD $@
 	$(Q)$(LD) $(CFLAGS_CPU) $(LDFLAGS) -T $(linker-script) $(OBJECTS) -Wl,--cref -Wl,-Map=$(@:.elf=.map) -Wl,--start-group $(libraries) -Wl,--end-group -o $@
 
