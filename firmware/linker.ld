@@ -15,10 +15,19 @@ SECTIONS
 {
     .text :
     {
+        . = ALIGN(4);
         _text = .;
         KEEP(*(.isr_vector*))
+        KEEP (*(.init))
+        KEEP (*(.fini))
         *(.text*)
+
+        *(.glue_7)
+        *(.glue_7t)
+        *(.eh_frame)
+
         *(.rodata*)
+        . = ALIGN(4);
         _etext = .;
     } > ITCM_FLASH
 
@@ -29,19 +38,46 @@ SECTIONS
         __exidx_end = .;
     } > ITCM_FLASH
 
+    .preinit_array :
+    {
+        PROVIDE_HIDDEN (__preinit_array_start = .);
+        KEEP (*(.preinit_array*))
+        PROVIDE_HIDDEN (__preinit_array_end = .);
+    } >ITCM_FLASH
+
+    .init_array :
+    {
+        PROVIDE_HIDDEN (__init_array_start = .);
+        KEEP (*(SORT(.init_array.*)))
+        KEEP (*(.init_array*))
+        PROVIDE_HIDDEN (__init_array_end = .);
+    } >ITCM_FLASH
+
+    .fini_array :
+    {
+        PROVIDE_HIDDEN (__fini_array_start = .);
+        KEEP (*(SORT(.fini_array.*)))
+        KEEP (*(.fini_array*))
+        PROVIDE_HIDDEN (__fini_array_end = .);
+    } >ITCM_FLASH
+
     .data :
     {
+        . = ALIGN(4);
         _sidata = LOADADDR (.data);
         _sdata = .;
         *(.data*)
+        . = ALIGN(4);
         _edata = .;
     } > SRAM2 AT> AXIM_FLASH
 
     .bss :
     {
+        . = ALIGN(4);
         _sbss = .;
         *(.bss*)
         *(COMMON)
+        . = ALIGN(4);
         _ebss = .;
     } > SRAM2
 }
