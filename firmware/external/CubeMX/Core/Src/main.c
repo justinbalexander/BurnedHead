@@ -483,7 +483,65 @@ static void MX_FMC_Init(void)
   }
 
   /* USER CODE BEGIN FMC_Init 2 */
+  // TODO: Figure out how to get HCLK value to tie defines together instead of hardcoding 108MHz
+  FMC_SDRAM_CommandTypeDef command =
+  {
+    .CommandTarget = FMC_SDRAM_CMD_TARGET_BANK1,
+    .CommandMode = FMC_SDRAM_CMD_CLK_ENABLE,
+    .ModeRegisterDefinition = (hsdram1.Init.CASLatency >> FMC_SDCR1_CAS_Pos) << 4,
+    .AutoRefreshNumber = 2,
+  };
+  uint32_t refreshRate = ((64ull * 108000000) / (1000ul * 8196)) - 20;
 
+  HAL_SDRAM_SendCommand(&hsdram1, &command, 0);
+
+  // TODO: use monoTimer for 100us
+  for (volatile uint32_t i = 0; i < 0xFFFFFF; i++);
+
+  command.CommandMode = FMC_SDRAM_CMD_PALL;
+  HAL_SDRAM_SendCommand(&hsdram1, &command, 0);
+
+  command.CommandMode = FMC_SDRAM_CMD_AUTOREFRESH_MODE;
+  HAL_SDRAM_SendCommand(&hsdram1, &command, 0);
+
+  command.CommandMode = FMC_SDRAM_CMD_LOAD_MODE;
+  HAL_SDRAM_SendCommand(&hsdram1, &command, 0);
+
+  FMC_SDRAM_ProgramRefreshRate(hsdram1.Instance, refreshRate);
+
+  // TODO: use monoTimer for 500us
+  for (volatile uint32_t i = 0; i < 0xFFFFFF; i++);
+
+  // TODO: wrap tests in config, full test suite
+  extern uint32_t _start_sdram[];
+  extern uint32_t _end_sdram[];
+  for (uint32_t i = 0; i < ((_end_sdram - _start_sdram) / sizeof(*_start_sdram)); i++)
+  {
+    _start_sdram[i] = 0xAAAAAAAA;
+  }
+  for (uint32_t i = 0; i < ((_end_sdram - _start_sdram) / sizeof(*_start_sdram)); i++)
+  {
+    if (_start_sdram[i] != 0xAAAAAAAA)
+      Error_Handler();
+  }
+  for (uint32_t i = 0; i < ((_end_sdram - _start_sdram) / sizeof(*_start_sdram)); i++)
+  {
+    _start_sdram[i] = 0xFFFFFFFF;
+  }
+  for (uint32_t i = 0; i < ((_end_sdram - _start_sdram) / sizeof(*_start_sdram)); i++)
+  {
+    if (_start_sdram[i] != 0xFFFFFFFF)
+      Error_Handler();
+  }
+  for (uint32_t i = 0; i < ((_end_sdram - _start_sdram) / sizeof(*_start_sdram)); i++)
+  {
+    _start_sdram[i] = 0;
+  }
+  for (uint32_t i = 0; i < ((_end_sdram - _start_sdram) / sizeof(*_start_sdram)); i++)
+  {
+    if (_start_sdram[i] != 0)
+      Error_Handler();
+  }
   /* USER CODE END FMC_Init 2 */
 }
 

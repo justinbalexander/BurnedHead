@@ -83,3 +83,4 @@ SECTIONS
 }
 _estack = ORIGIN(SRAM2) + LENGTH(SRAM2);
 _start_sdram = ORIGIN(SDRAM);
+_end_sdram = ORIGIN(SDRAM) + LENGTH(SDRAM) - 1;
