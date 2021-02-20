@@ -6,3 +6,7 @@ void user_main(void)
   {
   }
 }
+
+void SysTick_Handler(void)
+{
+}
