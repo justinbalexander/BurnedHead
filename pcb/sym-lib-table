@@ -1,4 +1,4 @@
 (sym_lib_table
-  (lib (name parts-lib-SnapEDA)(type Legacy)(uri $KIPRJMOD/library/parts-lib/snapEDA/parts-lib-SnapEDA.lib)(options "")(descr ""))
-  (lib (name parts-lib)(type Legacy)(uri $KIPRJMOD/library/parts-lib/parts-lib.lib)(options "")(descr ""))
+  (lib (name "parts-lib-SnapEDA")(type "KiCad")(uri "${KIPRJMOD}/library/parts-lib/snapEDA/parts-lib-SnapEDA.kicad_sym")(options "")(descr ""))
+  (lib (name "parts-lib")(type "KiCad")(uri "${KIPRJMOD}/library/parts-lib/parts-lib.kicad_sym")(options "")(descr ""))
 )

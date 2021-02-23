@@ -1,3 +1,3 @@
 [submodule "library/parts-lib"]
 	path = pcb/library/parts-lib
-	url = https://github.com/vegecode/parts-lib
+	url = ssh://git@github.com/vegecode/parts-lib
