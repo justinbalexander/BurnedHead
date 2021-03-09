@@ -31,13 +31,16 @@ git clone --recurse-submodules https://github.com/vegecode/BurnedHead.git
 ## Building the Application
 
 BurnedHead uses Makefiles.
-Navigate to the base directory of the clone, and:
+Navigate to the base directory of the clone, and
+point to the specific Makefile you want to build (currently only one):
+
+Example:
 
 ```bash
-make
+make -f configurations/${CONFIGURATION_NAME}/Makefile
 ```
 
-The resulting executable(s) are in `./build`
+The resulting executable(s) are in `./build/${CONFIGURATION_NAME}`
 
 # Debugging on the Target
 
