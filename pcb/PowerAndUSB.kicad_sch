@@ -1,4 +1,6 @@
-(kicad_sch (version 20210126) (generator eeschema)
+(kicad_sch (version 20210621) (generator eeschema)
+
+  (uuid f86f0f21-a441-4b6e-aa24-619692acbacd)
 
   (paper "A")
 
@@ -520,15 +522,6 @@
         )
         (polyline
           (pts
-            (xy 2.286 0)
-            (xy 1.27 -0.381)
-            (xy 1.27 0.381)
-            (xy 2.286 0)
-          )
-          (stroke (width 0)) (fill (type outline))
-        )
-        (polyline
-          (pts
             (xy 2.54 -1.778)
             (xy 3.302 -1.778)
             (xy 3.302 1.778)
@@ -553,6 +546,15 @@
             (xy 3.302 -0.381)
           )
           (stroke (width 0)) (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy 2.286 0)
+            (xy 1.27 -0.381)
+            (xy 1.27 0.381)
+            (xy 2.286 0)
+          )
+          (stroke (width 0)) (fill (type outline))
         )
       )
       (symbol "IRLML6401TRPBF_1_1"
@@ -931,14 +933,8 @@
       (symbol "USB_B_Micro_0_1"
         (circle (center -3.81 2.159) (radius 0.635) (stroke (width 0.254)) (fill (type outline)))
         (circle (center -0.635 3.429) (radius 0.381) (stroke (width 0.254)) (fill (type outline)))
-        (rectangle (start -5.08 -7.62) (end 5.08 7.62)
-          (stroke (width 0.254)) (fill (type background))
-        )
         (rectangle (start -0.127 -7.62) (end 0.127 -6.858)
           (stroke (width 0)) (fill (type none))
-        )
-        (rectangle (start 0.254 1.27) (end -0.508 0.508)
-          (stroke (width 0.254)) (fill (type outline))
         )
         (rectangle (start 5.08 -5.207) (end 4.318 -4.953)
           (stroke (width 0)) (fill (type none))
@@ -951,6 +947,12 @@
         )
         (rectangle (start 5.08 4.953) (end 4.318 5.207)
           (stroke (width 0)) (fill (type none))
+        )
+        (rectangle (start 0.254 1.27) (end -0.508 0.508)
+          (stroke (width 0.254)) (fill (type outline))
+        )
+        (rectangle (start -5.08 -7.62) (end 5.08 7.62)
+          (stroke (width 0.254)) (fill (type background))
         )
         (polyline
           (pts
@@ -979,6 +981,20 @@
         )
         (polyline
           (pts
+            (xy -4.699 5.842)
+            (xy -4.699 5.588)
+            (xy -4.445 4.826)
+            (xy -4.445 4.572)
+            (xy -1.651 4.572)
+            (xy -1.651 4.826)
+            (xy -1.397 5.588)
+            (xy -1.397 5.842)
+            (xy -4.699 5.842)
+          )
+          (stroke (width 0)) (fill (type none))
+        )
+        (polyline
+          (pts
             (xy 0.635 2.794)
             (xy 0.635 1.524)
             (xy 1.905 2.159)
@@ -995,20 +1011,6 @@
             (xy -4.318 5.588)
           )
           (stroke (width 0)) (fill (type outline))
-        )
-        (polyline
-          (pts
-            (xy -4.699 5.842)
-            (xy -4.699 5.588)
-            (xy -4.445 4.826)
-            (xy -4.445 4.572)
-            (xy -1.651 4.572)
-            (xy -1.651 4.826)
-            (xy -1.397 5.588)
-            (xy -1.397 5.842)
-            (xy -4.699 5.842)
-          )
-          (stroke (width 0)) (fill (type none))
         )
       )
       (symbol "USB_B_Micro_1_1"
